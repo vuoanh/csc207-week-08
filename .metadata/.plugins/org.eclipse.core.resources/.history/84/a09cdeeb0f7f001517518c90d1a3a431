@@ -1,0 +1,82 @@
+
+public class LinkedList  <T> implements List <T>{
+	private Node first;
+	private int size;
+	
+	private class Node<T>{
+		private T variable;
+		private Node next;
+		public Node(T variable, Node next){
+			this.variable = variable;
+			this.next = next;
+		}
+		public Node(T variable){
+			this.variable = variable;
+		}
+	}
+	
+	public LinkedList(){
+		first = null;
+		size = 0;
+	}
+
+	@Override
+	public void add(T variable) {
+		Node<T> newNode = new Node<T>(variable, first);
+	}
+
+	@Override
+	public void remove(T variable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public T get(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void set(T variable, int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int indexOf(T variable) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean contains(T variable) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public long size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}
