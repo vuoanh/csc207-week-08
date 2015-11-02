@@ -1,0 +1,18 @@
+package edu.grinnell.sortingvisualizer.sortevents;
+import java.util.List;
+public class SortEvent {
+	public static <T extends Comparable<? super T>> void apply(T arr[]){
+		arr[].apply();
+	}
+	public List<Integer> getAffectedIndices(){
+		return list;
+	}
+	public static boolean isEmphasized(){
+		if(emphasized){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+}

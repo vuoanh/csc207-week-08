@@ -1,0 +1,48 @@
+import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class MergeSort {
+	/* helper method help merge two sub arrays and put the merged array into outArr */
+	public static void merge(int[] arr, int leftPos, int rightPos, int outArr[], int rightEnd){
+		int ElementNum = rightEnd - leftPos +1;
+		int leftEnd = rightPos - 1;
+		int tmpPos = leftPos;
+		// Compare first element of each of left and right sub arrays.
+		// Copy the smaller element to outArr
+		while(leftPos <= leftEnd && rightPos <= rightEnd){
+			if (arr[leftPos] < arr[rightPos]){
+				outArr[tmpPos++] = arr[leftPos++];
+			}
+			else {
+				outArr[tmpPos++] = arr[rightPos++];
+			}
+		}
+		// if right sub array is out of element
+		while(leftPos <= leftEnd){
+			outArr[tmpPos++] = arr[leftPos++];
+		}
+		while(rightPos <= rightEnd){
+			outArr[tmpPos++] = arr[rightPos++];
+		}
+		// Copy outArr back to arr
+		arr = outArr.clone();
+	}
+	/* Helper mergeSort for mergeSort method. 
+	 * Recursively devide the array into left and right sub arrays
+	 * Then, recursively merge left and right sub arrays by using merge method
+	 *  */
+	public static void mergeSortHelper(int arr[], int lower, int upper, int[] tmpArr){
+		if (upper > lower) {
+			int mid = lower + (upper - lower) /2;
+			mergeSortHelper(arr, lower, mid,tmpArr);
+			mergeSortHelper(arr, mid+1, upper, tmpArr);
+			merge(arr, lower, mid + 1, tmpArr, upper);
+		}
+	}
+	public static int[] mergeSort(int arr[]){
+		int[] tmpArr = new int[arr.length];
+		mergeSortHelper(arr, 0, arr.length-1, tmpArr);
+		return tmpArr;
+	}
+}

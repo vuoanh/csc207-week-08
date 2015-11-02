@@ -1,0 +1,35 @@
+package edu.grinnell.sortingvisualizer.sortevents;
+import java.util.ArrayList;
+import java.util.List;
+public class SortEvent<T> {
+	private boolean emphasized = true;
+	private T[] arr;
+	
+	public SortEvent(boolean emphasized, T[] arr){
+		this.emphasized = emphasized;
+		this.arr = (T[]) arr;
+	}
+	
+	/* applies this sort event to the given array.
+	 * @arr : an array of objects typed T
+	 */
+	public void apply(T[] arr){
+		this.arr = (T[]) arr;
+	}
+	
+	/* returns a list containing all of the array indices that this event affects.
+	 * 
+	 */
+	public ArrayList<Integer> getAffectedIndices(){
+		ArrayList<Integer> list = new ArrayList<>();
+		return list;
+	}
+	
+	/* return true if this event should be emphasized by the visualizer/audibilizer.
+	 */
+	public boolean isEmphasized(){
+		return this.emphasized;
+	}
+	
+	
+}

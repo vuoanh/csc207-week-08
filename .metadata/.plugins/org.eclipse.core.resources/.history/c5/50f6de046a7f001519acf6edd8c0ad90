@@ -1,0 +1,131 @@
+
+public class LinkedList  <T> implements List <T>{
+	private Node<T> first;
+	
+	// Hide the Node class
+	private class Node<T>{
+		public T value;
+		public Node next;
+		// Constructor
+		public Node(T value, Node<T> next){
+			this.value = value;
+			this.next = next;
+		}
+		public Node(T value){
+			this(value, null);
+		}
+	}
+	
+	// call constructor, first node is null
+	public LinkedList(){
+		first = null;
+	}
+	
+	
+	@Override
+	public void add(T value) {
+		Node<T> newNode = new Node<T>(value, first);
+		if (first == null){
+			first = newNode;
+		}
+		else {
+			Node<T> iter = first;
+			// walk iter to the end of the list
+			while(iter.next != null){
+				iter = iter.next;
+			}
+			iter.next = newNode;
+		}
+	}
+
+	@Override
+	public void remove(T value) {
+		Node<T> iter = first;
+		while(iter != null){
+			if (iter.next.value == value){
+				iter.next = iter.next; 
+			}
+		}
+	}
+
+	@Override
+	public void remove(int index) {
+		Node<T> iter = first;
+		for(int i = 0; i < index - 1; i++) {
+			iter = iter.next;
+		}
+		iter.next = iter.next.next;
+	}
+
+	@Override
+	public void clear() {
+		// Free the pointer
+		first = null; // garbage collector will take care the rest
+	}
+
+	@Override
+	public T get(int index) {
+		Node<T> iter = first;
+		for(int i = 0; i < index;i++){
+			iter = iter.next;
+		}
+		return iter.value;
+	}
+
+	@Override
+	public void set(T value, int index) {
+		Node<T> iter = first;
+		for(int j = 0; j < index; j++){
+			iter = iter.next;
+		}
+		iter.value = variable;
+	}
+
+	@Override
+	public int indexOf(T value) {
+		Node<T> iter = first;
+		int counter = 0;
+		while(iter.next != null){
+			iter = iter.next;
+			counter++;
+			if(iter.value == value){
+				return counter;
+			}
+		}
+	    throw new IllegalArgumentException("There is no such value in the list, loser!");
+		
+	}
+
+	@Override
+	public boolean contains(T variable) {
+		Node<T> iter = first;
+		while(iter.next != null){
+			iter = iter.next;
+			if(iter.value == value){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		if (first == null){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public long size() {
+		int ret = 0;
+		Node<T> iter = first;
+		while (iter != null){
+			iter = iter.next;
+			ret++;
+		}
+		return ret;
+	}
+	
+}

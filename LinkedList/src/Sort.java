@@ -11,7 +11,6 @@ class A implements Comparable<Integer> {
 			return 0;
 		} else { return 1;}
 	}
-	
 }
 public class Sort<T> {
 	/* helper method help merge two sub arrays and put the merged array into outArr */

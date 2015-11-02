@@ -1,0 +1,5 @@
+package edu.grinnell.sortingvisualizer.sortevents;
+
+public class SortEvent {
+
+}

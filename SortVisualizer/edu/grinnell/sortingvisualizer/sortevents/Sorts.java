@@ -1,0 +1,16 @@
+package edu.grinnell.sortingvisualizer.sortevents;
+
+import java.util.ArrayList;
+
+public class Sorts{
+	/* Given a list of SortEvent objects and an array of Ts, 
+	 * applies those events to the array in-order. */
+	public <T> void eventSort(ArrayList<SortEvent> eventList, T[] arr){
+		int arrLength = arr.length;
+		int listSize = eventList.size();
+		for(int i = 0; i < listSize; i++){
+			eventList.get(i).apply(arr);
+		}
+	}
+}
+
