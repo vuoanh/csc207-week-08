@@ -1,0 +1,71 @@
+
+
+public class ArrayList<T> implements List<T>{
+	private int size;
+	private T[] arr = (T[]) new Object[10];
+
+	@Override
+	public void add(T value) {
+		if (size + 1 > arr.length){
+			this.arr = (T[]) new Object[arr.length * 2];
+		} else {
+			arr[size++] = value;
+		}
+	}
+
+	@Override
+	public void remove(T value) {
+		
+		
+	}
+
+	@Override
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clear() {
+		size = 0;
+		
+	}
+
+	@Override
+	public T get(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void set(T value, int index) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int indexOf(T value) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean contains(T value) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		if (size == 0){
+		return true;
+		} else {return false;}
+	}
+
+	@Override
+	public long size() {
+		return size;
+	}
+	
+
+}

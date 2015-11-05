@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JFrame;
+import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+import edu.grinnell.sortingvisualizer.sorts.Sorts;
+
+public class SortingVisualizer {
+
+	JFrame Frame = new JFrame();
+	public void runHelper(ArrayList<SortEvent> eventList, Integer[] array) {
+		int i = 0;
+		int size = eventList.size();
+		while(i < size + 1){
+			eventList.get(i++).apply(array);
+		}
+	}
+
+	public static <T extends Comparable<? super T>> void main(String[] args){
+		// Prompt user input to get the Integer, width, and height
+		Integer[] arr = {3,2,9,7, 22, 10,7,30,20}; 
+		int width = 500;
+		int height = 500;
+		
+		// Create the array used in sound sorting
+		Integer[] displayArr = arr.clone();
+		// Create a list of SortEvent after sorting the arr
+		ArrayList<SortEvent> eventList = Sorts.InsertionSort(arr);
+		// Initiate an Iterator
+		Iterator<SortEvent> iter = eventList.iterator();
+		
+		// Make a frame and panel
+		JFrame frame = new JFrame(); // get a new frame
+		frame.setTitle("Sorting Visualizer"); // set title
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //close when there is no task to do
+		frame.setResizable(false); // Disables resizing of the frame
+		ArrayPanel panel = new ArrayPanel(displayArr, width, height, arr[arr.length - 1]);
+		frame.add(panel); // add the panel into frame to display it
+		frame.pack();
+		frame.setVisible(true);
+		
+		// Create timer and timer task object to repeatedly run the sorting display
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run(){
+				if (iter.hasNext()){
+					iter.next().apply(displayArr);
+					panel.repaint();
+				}
+				else cancel();
+			}
+		};
+		Timer tasks = new Timer();
+		tasks.schedule(task, 0, 10);
+	}
+}

@@ -12,7 +12,10 @@ public class CompareEvent<T> extends SortEvent<T>{
 	/* constructor
 	 * 
 	 */
-	public CompareEvent(T[] arr, ArrayList<Integer> affectedList) {
-		super(false, arr, affectedList);
+	public CompareEvent(ArrayList<SortEvent> list,int index1, int index2) {
+		super(false, new ArrayList<Integer>());
+		this.getAffectedIndices().add(index1);
+		this.getAffectedIndices().add(index2);
 	}
+	
 }

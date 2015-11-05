@@ -1,0 +1,6 @@
+package edu.grinnell.sortingvisualizer.sorts;
+
+public class ArrayList implements List{
+	
+
+}

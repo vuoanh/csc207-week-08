@@ -1,0 +1,16 @@
+
+
+public interface List<T>{
+	public void add(T variable);
+	public void remove(T variable);
+	public void remove(int index);
+	public void clear();
+	public T get(int index);
+	public void set(T variable, int index);
+	public int indexOf(T variable);
+	public boolean contains(T variable);
+	public boolean isEmpty();
+	public long size();
+	
+	
+}

@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import java.util.TimerTask;
+
+import javax.swing.JFrame;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
+import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+import edu.grinnell.sortingvisualizer.sorts.Sorts;
+
+public class SortingVisualizer {
+
+	JFrame Frame = new JFrame();
+	public void runHelper(ArrayList<SortEvent> eventList, Integer[] array) {
+		int i = 0;
+		int size = eventList.size();
+		while(i < size + 1){
+			eventList.get(i++).apply(array);
+		}
+	}
+
+	public static <T extends Comparable<? super T>> void main(String[] args)
+	{
+		Integer[] arr = {2,6,7,9}; 
+		Integer[] displayArr = arr.clone();
+		// create a list of SortEvent after sorting the arr
+		ArrayList<SortEvent> eventList = Sorts.BubbleSort(arr);
+		// inti an Iterator
+		Iterator<SortEvent> iter = eventList.iterator();
+		int width = 500;
+		int height = 1000;
+		JFrame frame = new JFrame(); // get a new frame
+		frame.setTitle("Sorting Visualizer"); // set title
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //close when there is no task to do
+		frame.setResizable(false); // Disables resizing of the frame
+		System.out.println(arr[length -1]);
+		ArrayPanel panel = new ArrayPanel(displayArr, width, height, arr[arr.length - 1]);
+		frame.add(panel);
+		frame.pack();
+		frame.setVisible(true);
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run(){
+				if (iter.hasNext()){
+					iter.next().apply(displayArr);
+					panel.repaint();
+				}
+				else cancel();
+			}
+		};
+	}
+}

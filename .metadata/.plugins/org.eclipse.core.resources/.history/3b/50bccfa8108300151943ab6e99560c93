@@ -1,0 +1,136 @@
+package edu.grinnell.sortingvisualizer.sorts;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import edu.grinnell.sortingvisualizer.sortevents.CompareEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SwapEvent;
+
+public class QuickSort <T> {
+	
+	private static ArrayList<SortEvent> quickList;
+	
+	public static <T extends Comparable<? super T>> T[] BaseSort(T arr[], int left, int right){
+		for(int i = left; i < right; i++){
+			for(int j = i+1; j > left; j--){
+				ArrayList<Integer> compareIndArr = new ArrayList<Integer>();
+				compareIndArr.add(j);
+				compareIndArr.add(j-1);
+				SortEvent<T> compareEvent = new CompareEvent<T>(arr, compareIndArr);
+				quickList.add(compareEvent);
+				if(arr[j].compareTo(arr[j-1]) < 0){
+					
+					// swap event
+					ArrayList<Integer> indArr = new ArrayList<Integer>();
+					indArr.add(j);
+					indArr.add(j-1);
+					SortEvent<T> swapEvent = new SwapEvent<T>(arr, indArr);
+					swapEvent.apply(arr);
+					quickList.add(swapEvent);
+				} else break;
+			}
+		}
+		return arr;
+	}
+
+	public static <T extends Comparable<? super T>> void QuickSort(T[] arr){
+		QuickSortHelper(arr, 0, arr.length-1);
+	}
+
+	public static <T extends Comparable<? super T>> void QuickSortHelper(T arr[],int left, int right){
+		if(left >= right - 2){ //when there's no more than three elements in left
+			BaseSort(arr, left, right); //sort the remaining array of length three
+		}
+		else {
+			T pivot;
+			int middle = (left + right)/2;
+			//creating pivot according to finding median of first, middle, and last
+			// compare Event
+			ArrayList<Integer> compareIndArr = new ArrayList<Integer>();
+			compareIndArr.add(right);
+			compareIndArr.add(left);
+			SortEvent<T> compareEvent = new CompareEvent<T>(arr, compareIndArr);
+			quickList.add(compareEvent);
+			if(arr[right].compareTo(arr[left]) < 0){
+				ArrayList<Integer> indArr = new ArrayList<Integer>();
+				indArr.add(right);
+				indArr.add(left);
+				SortEvent<T> swapEvent = new SwapEvent<T>(arr, indArr);
+				swapEvent.apply(arr);
+				quickList.add(swapEvent);
+			}
+			ArrayList<Integer> compareIndArr1 = new ArrayList<Integer>();
+			compareIndArr.add(right);
+			compareIndArr.add(left);
+			SortEvent<T> compareEvent1 = new CompareEvent<T>(arr, compareIndArr1);
+			quickList.add(compareEvent1);
+			// compare Event
+			if(arr[left].compareTo(arr[middle]) < 0){
+				ArrayList<Integer> indArr = new ArrayList<Integer>();
+				indArr.add(left);
+				indArr.add(middle);
+				SortEvent<T> swapEvent = new SwapEvent<T>(arr, indArr);
+				swapEvent.apply(arr);
+				quickList.add(swapEvent);
+			}
+			ArrayList<Integer> compareIndArr2 = new ArrayList<Integer>();
+			compareIndArr.add(middle);
+			compareIndArr.add(left);
+			SortEvent<T> compareEvent2 = new CompareEvent<T>(arr, compareIndArr2);
+			quickList.add(compareEvent2);
+			// compare Event
+			if(arr[middle].compareTo(arr[right]) < 0){
+				ArrayList<Integer> indArr = new ArrayList<Integer>();
+				indArr.add(right);
+				indArr.add(middle);
+				SortEvent<T> swapEvent = new SwapEvent<T>(arr, indArr);
+				swapEvent.apply(arr);
+				quickList.add(swapEvent);
+			}
+			pivot = arr[middle];
+			
+			//swap event
+			ArrayList<Integer> indArr = new ArrayList<Integer>();
+			indArr.add(middle);
+			indArr.add(right);
+			SortEvent<T> swapEvent = new SwapEvent<T>(arr, indArr);
+			swapEvent.apply(arr);
+			quickList.add(swapEvent);
+			//bc "right" is greater than middle, 
+			//swap middle to the index before right to create pivot
+			//go through array and swap
+			//i = low && j = high
+			int i = left;
+			int j = right;
+			while(i < j){
+				//increments i until it is untrue (fixes i to an index)
+				while(arr[++i].compareTo(pivot) < 0){
+					//decrements j until it is untrue (fixes j to an index)
+					while(arr[--j].compareTo(pivot) > 0); 
+					if(i >= j){
+						break; //stop the "pointers"
+					}
+					// swap event
+					ArrayList<Integer> indArr1 = new ArrayList<Integer>();
+					indArr.add(i);
+					indArr.add(j);
+					SortEvent<T> swapEvent1 = new SwapEvent<T>(arr, indArr1);
+					swapEvent.apply(arr);
+					quickList.add(swapEvent1);
+				}
+				// swap event
+				ArrayList<Integer> indArr2 = new ArrayList<Integer>();
+				indArr.add(right);
+				indArr.add(i);
+				SortEvent<T> swapEvent2 = new SwapEvent<T>(arr, indArr2);
+				swapEvent.apply(arr);
+				quickList.add(swapEvent2);
+				QuickSortHelper(arr, left, i-1);
+				QuickSortHelper(arr, i+1, right);
+			}
+		}
+	}
+
+}

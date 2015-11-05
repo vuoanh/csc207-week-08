@@ -6,12 +6,15 @@ import java.util.ArrayList;
  * Applying a copy event performs the copy of the recorded value into the array.
  */
 
-public class CopyEvent<T> extends SwapEvent<T>{
+public class CopyEvent<T> extends SortEvent<T>{
 	private T value;
 	/* constructor */
-	public CopyEvent(T[] arr, ArrayList<Integer> list, T value) {
-		super(arr, list);
+	public CopyEvent(T[] arr, ArrayList<SortEvent> list,int index, T value) {
+		super(true, new ArrayList<Integer>());
+		this.getAffectedIndices().add(index);
 		this.value = value;
+		apply(arr);
+		list.add(this);
 	}
 	
 	/* Copies the recorded value into the array.
@@ -19,7 +22,7 @@ public class CopyEvent<T> extends SwapEvent<T>{
 	 */
 	@Override
 	public void apply(T[] arr){
-		int index = getAffectedIndices().get(1);
+		int index = getAffectedIndices().get(0);
 		arr[index] = this.value;
 	}
 }

@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sortevents.SwapEvent"/>
 <fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sortevents.SortEvent"/>
 <fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sortevents.CompareEvent"/>
+<fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sortevents.CopyEvent"/>
+<fullyQualifiedTypeName name="java.util.TimerTask"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.schemagen.xmlschema.List"/>
+<fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sortevents.Sorts"/>
+<fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sorts.BubbleSort"/>
+<fullyQualifiedTypeName name="edu.grinnell.sortingvisualizer.sorts.Sorts"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="java.util.Timer"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="javax.sound.midi.MidiChannel"/>
+<fullyQualifiedTypeName name="javax.sound.midi.Synthesizer"/>
+<fullyQualifiedTypeName name="javax.sound.midi.MidiSystem"/>
 </qualifiedTypeNameHistroy>

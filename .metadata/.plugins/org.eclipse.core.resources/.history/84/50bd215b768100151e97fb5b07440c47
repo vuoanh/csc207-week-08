@@ -1,0 +1,86 @@
+package edu.grinnell.sortingvisualizer.sorts;
+import java.util.ArrayList;
+import edu.grinnell.sortingvisualizer.sortevents.CompareEvent;
+import edu.grinnell.sortingvisualizer.sortevents.CopyEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+
+public class MergeSort {
+
+	private static ArrayList<SortEvent> mergeList;
+
+	/* helper method help merge two sub arrays and put the merged array into outArr */
+	public static <T extends Comparable<? super T>> void merge(T[] arr, int leftPos, int rightPos, T outArr[], int rightEnd){
+		int leftEnd = rightPos - 1;
+		int tmpPos = leftPos;
+		// Compare first element of each of left and right sub arrays.
+		// Copy the smaller element to outArr
+		while(leftPos <= leftEnd && rightPos <= rightEnd){
+			ArrayList<Integer> compareIndArr = new ArrayList<Integer>();
+			compareIndArr.add(leftPos);
+			compareIndArr.add(rightPos);
+			SortEvent<T> compareEvent = new CompareEvent<T>(arr, compareIndArr);
+			mergeList.add(compareEvent);
+			// compare Event
+			if (arr[leftPos].compareTo(arr[rightPos]) < 0){
+				ArrayList<Integer> copyIndArr = new ArrayList<Integer>();
+				copyIndArr.add(tmpPos++); 
+				SortEvent<T> copyEvent = new CopyEvent<T>(arr, copyIndArr, arr[leftPos++]);
+				mergeList.add(copyEvent);
+				// copy event :outArr[tmpPos++] = arr[leftPos++];
+				copyEvent.apply(outArr);
+			}
+			else {
+				ArrayList<Integer> copyIndArr = new ArrayList<Integer>();
+				copyIndArr.add(tmpPos++);
+				SortEvent<T> copyEvent = new CopyEvent<T>(arr, copyIndArr, arr[rightPos++]);
+				mergeList.add(copyEvent);
+				//copy event: outArr[tmpPos++] = arr[rightPos++];
+				copyEvent.apply(outArr);
+			}
+		}
+		// if right sub array is out of element
+		while(leftPos <= leftEnd){
+			ArrayList<Integer> copyIndArr = new ArrayList<Integer>();
+			copyIndArr.add(tmpPos++);
+			SortEvent<T> copyEvent = new CopyEvent<T>(arr, copyIndArr, arr[leftPos++]);
+			mergeList.add(copyEvent);
+			//copy event :outArr[tmpPos++] = arr[leftPos++];
+			copyEvent.apply(outArr);
+		}
+		while(rightPos <= rightEnd){
+			ArrayList<Integer> copyIndArr = new ArrayList<Integer>();
+			copyIndArr.add(tmpPos++);
+			SortEvent<T> copyEvent = new CopyEvent<T>(arr, copyIndArr, arr[rightPos++]);
+			mergeList.add(copyEvent);
+			//copy event :outArr[tmpPos++] = arr[rightPos++];
+			copyEvent.apply(outArr);
+		}
+		// Copy outArr back to arr
+		for(int i = 0; i < arr.length; i++){
+			//copy event
+			ArrayList<Integer> copyIndArr = new ArrayList<Integer>();
+			copyIndArr.add(i);
+			SortEvent<T> copyEvent = new CopyEvent<T>(arr, copyIndArr, outArr[i]);
+			mergeList.add(copyEvent);
+			//copy event : arr[i] = outArr[i];
+			copyEvent.apply(arr);
+		}
+	}
+	/* Helper mergeSort for mergeSort method. 
+	 * Recursively devide the array into left and right sub arrays
+	 * Then, recursively merge left and right sub arrays by using merge method
+	 *  */
+	public static <T extends Comparable<? super T>> void mergeSortHelper(T arr[], int lower, int upper, T[] tmpArr){
+		if (upper > lower) {
+			int mid = lower + (upper - lower) /2;
+			mergeSortHelper(arr, lower, mid,tmpArr);
+			mergeSortHelper(arr, mid+1, upper, tmpArr);
+			merge(arr, lower, mid + 1, tmpArr, upper);
+		}
+	}
+	public static <T extends Comparable<? super T>> ArrayList<SortEvent> mergeSort(T arr[]){
+		T[] tmpArr = (T[]) new Object[arr.length];
+		mergeSortHelper(arr, 0, arr.length-1, tmpArr);
+		return mergeList;
+	}
+}

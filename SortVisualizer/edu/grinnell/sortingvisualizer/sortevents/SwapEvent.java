@@ -8,8 +8,12 @@ import java.util.ArrayList;
  */
 public class SwapEvent<T> extends SortEvent<T> {
 	/* constructor */
-	public SwapEvent(T[] arr, ArrayList<Integer> affectedList) {
-		super(true, arr, affectedList);
+	public SwapEvent(T[] arr, ArrayList<SortEvent> list, int index1, int index2) {
+		super(true, new ArrayList<Integer>());
+		this.getAffectedIndices().add(index1);
+		this.getAffectedIndices().add(index2);
+		apply(arr);
+		list.add(this);
 	}
 	
 	/* applies this sort event to the given array.
@@ -17,8 +21,8 @@ public class SwapEvent<T> extends SortEvent<T> {
 	 */
 	@Override
 	public void apply(T[] arr){
-		int indexOne = getAffectedIndices().get(1);
-		int indexTwo = getAffectedIndices().get(2);
+		int indexOne = getAffectedIndices().get(0);
+		int indexTwo = getAffectedIndices().get(1);
 		T temp = arr[indexOne]; 
 		arr[indexOne] = arr[indexTwo];
 		arr[indexTwo] = temp;

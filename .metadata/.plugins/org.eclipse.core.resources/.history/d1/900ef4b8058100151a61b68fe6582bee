@@ -1,0 +1,32 @@
+package edu.grinnell.sortingvisualizer.sorts;
+import java.util.ArrayList;
+import edu.grinnell.sortingvisualizer.sortevents.CompareEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SwapEvent;
+
+public class InsertionSort {
+	public static <T extends Comparable<? super T>> ArrayList<SortEvent> InsertionSort(T arr[]){
+		ArrayList<SortEvent> insertList = new ArrayList<SortEvent>(); 
+		for(int i = 0; i < arr.length-1; i++){
+			for(int j = i+1; j > 0; j--){
+				ArrayList<Integer> indArr = new ArrayList<Integer>();
+				indArr.add(j);
+				indArr.add(j-1);
+				SortEvent<T> compareEvent = new CompareEvent<T>(arr, indArr);
+				insertList.add(compareEvent);
+				// compare event
+				if(arr[j].compareTo(arr[j-1]) <0){
+					// swap jth and (j-1)th element of the list
+					ArrayList<Integer> SwapIndArr = new ArrayList<Integer>();
+					SwapIndArr.add(j);
+					SwapIndArr.add(j-1);
+					SortEvent<T> swapEvent = new SwapEvent<T>(arr, SwapIndArr);
+					swapEvent.apply(arr);
+					insertList.add(swapEvent);
+				} else break;
+			}
+		}
+		return insertList;
+	}
+}
+

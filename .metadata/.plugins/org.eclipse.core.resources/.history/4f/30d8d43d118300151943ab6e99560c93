@@ -1,0 +1,27 @@
+
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+public class ArrayPanel<Integer> extends JPanel{
+	private Integer[] arr;
+	private int width;
+	private int height;
+	private static final long serialVersionUID = 1L;
+	public <T extends Comparable<? super T>>ArrayPanel(Integer[] arr, int width, int height) {
+		this.arr =  (Integer[]) arr;
+		this.width = width;
+		this.height = height;
+		setPreferredSize(new Dimension(width,height));	
+	}
+
+	public void paintComponent(Graphics g) {
+		int len = arr.length;
+		int regW = 400/len;
+		for (int i = 0; i < len; i++) {
+			Color Color = new Color(200 - 20 * i, 200 - 20 * i, 200 - 20 * i); 
+			g.setColor(Color);
+			g.fillRect(i*regW,500-20*(int)arr[i],regW,20*(int)arr[i]);
+		}
+	}
+}
